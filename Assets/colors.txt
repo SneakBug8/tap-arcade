@@ -1,0 +1,5 @@
+#011627 - dark blue
+#ff3366 - pink
+#2ec4b6 - green blue
+#f6f7f8 - white
+#20a4f3 - blue
