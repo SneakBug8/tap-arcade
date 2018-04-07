@@ -10,6 +10,7 @@ public class LevelController : MonoBehaviour
     public static LevelController Global;
     public float deltaY = 0;
     public float FloatingTime { get { return _floatingTime; } }
+    public float FloatingTimeInt { get { return Mathf.FloorToInt(_floatingTime); } }
     float _floatingTime = 0;
     public Text FloatingTimeText;
     public Camera Camera;
@@ -81,7 +82,7 @@ public class LevelController : MonoBehaviour
     {
         StartCoroutine(LoseAnimations());
         Stop();
-        LostMenu.Global.gameObject.SetActive(true);
+        LostMenu.Global.Enable();
     }
 
     IEnumerator LoseAnimations()

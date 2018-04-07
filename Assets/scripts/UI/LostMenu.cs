@@ -1,12 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LostMenu : MonoBehaviour {
+public class LostMenu : MonoBehaviour
+{
     public static LostMenu Global;
+    public UnityEvent OnDraw = new UnityEvent();
     private void Awake() {
         Global = this;
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);        
     }
 
-    public UnityEvent OnDraw = new UnityEvent();
+    public void Enable() {
+        Debug.Log("Enabled LostMenu");
+        gameObject.SetActive(true);
+        OnDraw.Invoke();
+    }
 }

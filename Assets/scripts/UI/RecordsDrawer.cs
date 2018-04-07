@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class RecordsDrawer : MonoBehaviour {
 
 	// Use this for initialization
-
-	private void Start() {
-		LostMenu.Global.OnDraw.AddListener(Redraw);
+	Text Text;
+	private void Awake() {
+		Text = GetComponent<Text>();
 	}
-	void Redraw() {
+	public void Redraw() {
+		Debug.Log("Redrawing Record Text");
 		var record = PlayerPrefs.GetFloat("RecordFloatingTime");
-		var recordtext = (LevelController.Global.FloatingTime > record) ? " New record!" : "";
-		GetComponent<Text>().text = string.Format(
+		var newrecord = LevelController.Global.FloatingTime > record;
+		var recordtext = (newrecord) ? " New record!" : "";
+		Text.text = string.Format(
 			"Your score - {0}.{1}",
-			LevelController.Global.FloatingTime,
+			LevelController.Global.FloatingTimeInt,
 			recordtext
 			);
+
+		if (newrecord) {
+			PlayerPrefs.SetFloat("RecordFloatingTime", LevelController.Global.FloatingTime);
+		}
 	}
 }
