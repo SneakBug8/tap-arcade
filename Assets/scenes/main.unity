@@ -423,7 +423,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -195
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_SizeDelta.x
@@ -647,9 +647,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrailObjects:
   - Object: {fileID: 1204644509}
-    DeltaY: 0.3
+    DeltaY: 0.2
   - Object: {fileID: 800677672}
-    DeltaY: 0.6
+    DeltaY: 0.4
 --- !u!212 &1130912191
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -997,7 +997,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -144
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1200,7 +1200,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -246
       objectReference: {fileID: 0}
     - target: {fileID: 22425714, guid: 9c8b0d76cfcc84acfa0fe5b50431fe12, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1555,7 +1555,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -66
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_SizeDelta.x
