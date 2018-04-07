@@ -18,20 +18,15 @@ public class AdsButton : MonoBehaviour {
     }
 
     private void Update() {
-        if (!Advertisement.IsReady("rewardedVideo")) {
-            button.interactable = false;
-        }
-        
-        if (wasUsed) {
-            Destroy(gameObject);         
+        if (Advertisement.IsReady("rewardedVideo") && !wasUsed) {
+            button.interactable = true;
         }
         else {
-            button.interactable = true;
+            button.interactable = false;
         }
     }
 
     void ShowAd() {
-        Debug.Log("Showing ad");
         if (Advertisement.IsReady("rewardedVideo")) {
             var options = new ShowOptions();
             options.resultCallback = AdCallback;
