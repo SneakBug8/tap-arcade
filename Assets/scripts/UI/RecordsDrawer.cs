@@ -11,7 +11,6 @@ public class RecordsDrawer : MonoBehaviour {
 		Text = GetComponent<Text>();
 	}
 	public void Redraw() {
-		Debug.Log("Redrawing Record Text");
 		var record = PlayerPrefs.GetFloat("RecordFloatingTime");
 		var newrecord = LevelController.Global.FloatingTime > record;
 		var recordtext = (newrecord) ? " New record!" : "";

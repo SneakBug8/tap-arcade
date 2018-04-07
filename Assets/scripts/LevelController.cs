@@ -87,7 +87,7 @@ public class LevelController : MonoBehaviour
 
     IEnumerator LoseAnimations()
     {
-        Player.Global.Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        Player.Global.Freeze();
         if (CameraShake != null)
         {
             CameraShake.ShakeCamera(1, 0.5f);
