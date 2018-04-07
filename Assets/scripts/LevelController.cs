@@ -68,7 +68,8 @@ public class LevelController : MonoBehaviour
 
     void ReposeTimeText()
     {
-        FloatingTimeText.transform.position = Player.Global.transform.position + Vector3.up;
+        var timetextpos = Camera.main.WorldToScreenPoint(Player.Global.transform.position + Vector3.up);
+        FloatingTimeText.transform.position = timetextpos;
     }
 
     void UpdateFlightTime()
@@ -80,7 +81,7 @@ public class LevelController : MonoBehaviour
     {
         StartCoroutine(LoseAnimations());
         Stop();
-        LoseMenu.Global.gameObject.SetActive(true);
+        LostMenu.Global.gameObject.SetActive(true);
     }
 
     IEnumerator LoseAnimations()

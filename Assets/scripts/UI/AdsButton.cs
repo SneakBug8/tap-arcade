@@ -21,8 +21,9 @@ public class AdsButton : MonoBehaviour {
         if (!Advertisement.IsReady("rewardedVideo")) {
             button.interactable = false;
         }
-        else if (wasUsed) {
-            Destroy(gameObject);            
+        
+        if (wasUsed) {
+            Destroy(gameObject);         
         }
         else {
             button.interactable = true;
@@ -33,15 +34,15 @@ public class AdsButton : MonoBehaviour {
         Debug.Log("Showing ad");
         if (Advertisement.IsReady("rewardedVideo")) {
             var options = new ShowOptions();
-            options.resultCallback = AdCallback; 
-            Advertisement.Show("rewardedVideo", options); 
+            options.resultCallback = AdCallback;
+            Advertisement.Show("rewardedVideo", options);
             wasUsed = true;
         }
     }
 
     void AdCallback(ShowResult result) {
         if (result == ShowResult.Finished) {
-            LoseMenu.Global.gameObject.SetActive(false);
+            LostMenu.Global.gameObject.SetActive(false);
             LevelController.Global.Resume();
         }
     }
