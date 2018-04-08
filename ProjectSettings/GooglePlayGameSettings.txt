@@ -4,5 +4,5 @@ proj.AppId=1023292145261
 proj.classDir=Assets
 proj.ConstantsClassName=GPGSIds
 and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e1023292145261%3c%2fstring%3e%0d%0a++%3c%21--+achievement+Played+first+time+--%3e%0d%0a++%3cstring+name%3d%22achievement_played_first_time%22+translatable%3d%22false%22%3eCgkI7fzbh-QdEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Score+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_score%22+translatable%3d%22false%22%3eCgkI7fzbh-QdEAIQAA%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
-and.ClientId=
+and.ClientId=1023292145261-d8c0tgt8ohfjn8k6mmck215nl27ue7s1.apps.googleusercontent.com
 android.SetupDone=true

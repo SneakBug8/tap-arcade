@@ -1,28 +1,38 @@
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
 public class SocialLogin : MonoBehaviour
 {
-    void Start()
+    void OnEnable()
     {
-        // Select the Google Play Games platform as our social platform implementation
-        GooglePlayGames.PlayGamesPlatform.Activate();
-        Social.localUser.Authenticate(ProcessAuthentication);
+        Debug.Log("Social login");
+
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+            .Build();
+
+        PlayGamesPlatform.InitializeInstance(config);
+        // recommended for debugging:
+        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
+
+        PlayGamesPlatform.Instance.localUser.Authenticate(ProcessAuthentication);
     }
 
-    void ProcessAuthentication(bool success)
+    void ProcessAuthentication(bool success, string error)
     {
         if (success)
         {
             Debug.Log("Authenticated, checking achievements");
-            
-            Social.ShowLeaderboardUI();            
+
+            // Social.ShowLeaderboardUI("CgkI7fzbh-QdEAIQAA");
 
             // Request loaded achievements, and register a callback for processing them
             Social.LoadAchievements(ProcessLoadedAchievements);
         }
         else
-            Debug.Log("Failed to authenticate");
+            Debug.Log("Failed to authenticate: " + error);
     }
 
     void ProcessLoadedAchievements(IAchievement[] achievements)
@@ -36,18 +46,19 @@ public class SocialLogin : MonoBehaviour
         Social.LoadScores("Leaderboard01", ProcessScores);
     }
 
-    void ProcessScores(IScore[] scores) {
+    void ProcessScores(IScore[] scores)
+    {
         if (scores.Length > 0)
-                {
-                    Debug.Log("Got " + scores.Length + " scores");
-                    string myScores = "Leaderboard:\n";
-                    foreach (IScore score in scores)
-                        myScores += "\t" + score.userID + " " + score.formattedValue + " " + score.date + "\n";
-                    Debug.Log(myScores);
+        {
+            Debug.Log("Got " + scores.Length + " scores");
+            string myScores = "Leaderboard:\n";
+            foreach (IScore score in scores)
+                myScores += "\t" + score.userID + " " + score.formattedValue + " " + score.date + "\n";
+            Debug.Log(myScores);
 
-                    Social.ShowLeaderboardUI();
-                }
-                else
-                    Debug.Log("No scores loaded");
+            Social.ShowLeaderboardUI();
+        }
+        else
+            Debug.Log("No scores loaded");
     }
 }
