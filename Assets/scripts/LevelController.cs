@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour
     public static LevelController Global;
     public float deltaY = 0;
     public float FloatingTime { get { return _floatingTime; } }
-    public float FloatingTimeInt { get { return Mathf.FloorToInt(_floatingTime); } }
+    public int FloatingTimeInt { get { return Mathf.FloorToInt(_floatingTime); } }
     float _floatingTime = 0;
     public Text FloatingTimeText;
     public Camera Camera;
