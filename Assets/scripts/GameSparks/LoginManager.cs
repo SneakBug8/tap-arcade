@@ -4,22 +4,37 @@ using GameSparks.Api.Responses;
 
 public class LoginManager : MonoBehaviour
 {
-    string AuthToken;
+    bool RequestedAuth = false;
+
+    public GameObject GameSparks;
     private void Update()
     {
+        if (GameSparks.GetComponent<GameSparks.Platforms.PlatformBase>() == null) {
+            return;
+        }
+
+        Auth();
+    }
+
+    void Auth() {
+        if (RequestedAuth) {
+            return;
+        }
+
+        RequestedAuth = true;
+
         new DeviceAuthenticationRequest().Send((response) =>
         {
             if (!response.HasErrors)
             {
                 Debug.Log("Device Authenticated...");
-                AuthToken = response.AuthToken;
+                Destroy(gameObject);
             }
             else
             {
-                Debug.Log("Error Authenticating Device...");
+                Debug.LogError("Error Authenticating Device...");
+                Destroy(gameObject);
             }
         });
-
-        Destroy(gameObject);
     }
 }

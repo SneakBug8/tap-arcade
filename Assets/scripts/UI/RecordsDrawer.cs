@@ -24,10 +24,11 @@ public class RecordsDrawer : MonoBehaviour
             recordtext
             );
 
+        ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);        
+
         if (newrecord)
         {
             PlayerPrefs.SetFloat("RecordFloatingTime", LevelController.Global.FloatingTime);
-            ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
         }
     }
 }
