@@ -1,39 +1,42 @@
 using UnityEngine;
 using GameSparks.Api.Requests;
 using GameSparks.Api.Responses;
+using System;
 
 public class LoginManager : MonoBehaviour
 {
     bool RequestedAuth = false;
 
     public GameObject GameSparks;
-    private void Update()
-    {
-        if (GameSparks.GetComponent<GameSparks.Platforms.PlatformBase>() == null) {
-            return;
-        }
 
-        Auth();
-    }
-
-    void Auth() {
-        if (RequestedAuth) {
-            return;
-        }
-
-        RequestedAuth = true;
-
+    public static void Auth(Action<bool> callback) {
         new DeviceAuthenticationRequest().Send((response) =>
         {
             if (!response.HasErrors)
             {
                 Debug.Log("Device Authenticated...");
-                Destroy(gameObject);
+                callback(true);
             }
             else
             {
                 Debug.LogError("Error Authenticating Device...");
-                Destroy(gameObject);
+                callback(false);
+            }
+        });
+    }
+
+    public static void Auth(Action<bool> callback, string facebooktoken) {
+        new FacebookConnectRequest().SetAccessToken(facebooktoken).Send((response) => 
+        {
+            if (!response.HasErrors)
+            {
+                Debug.Log("Facebook Authenticated...");
+                callback(true);
+            }
+            else
+            {
+                Debug.LogError("Error Authenticating Facebook...");
+                callback(false);
             }
         });
     }
