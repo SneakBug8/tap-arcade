@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     public static void SendScore(int score)
     {
         new LogEventRequest().SetEventKey("SendScore")
-            .SetEventAttribute("Time", (long)score)
+            .SetEventAttribute("TIME", (long)score)
             .Send((response) =>
             {
                 if (!response.HasErrors)
@@ -24,8 +24,9 @@ public class ScoreManager : MonoBehaviour
 
     public static void GetScore(Action<List<LeaderboardEntry>> callback, int EntryCount = 100)
     {
-        new LeaderboardDataRequest().SetLeaderboardShortCode("Time").SetEntryCount(EntryCount).Send((response) =>
+        new LeaderboardDataRequest().SetLeaderboardShortCode("TIME").SetEntryCount(EntryCount).Send((response) =>
         {
+            Debug.Log(response.JSONString);
             if (!response.HasErrors)
             {
                 var list = new List<LeaderboardEntry>();
@@ -36,7 +37,7 @@ public class ScoreManager : MonoBehaviour
                     
                     resultentry.Rank = (int) entry.Rank;
                     resultentry.PlayerName = entry.UserName;
-                    resultentry.Time = Convert.ToInt32(entry.JSONData["Time"]);
+                    resultentry.Time = Convert.ToInt32(entry.JSONData["TIME"]);
 
                     list.Add(resultentry);
                 }
@@ -50,10 +51,4 @@ public class ScoreManager : MonoBehaviour
         });
 
     }
-}
-
-public class LeaderboardEntry {
-    public int Rank;
-    public string PlayerName;
-    public int Time;
 }

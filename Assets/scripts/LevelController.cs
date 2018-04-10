@@ -69,7 +69,7 @@ public class LevelController : MonoBehaviour
 
     void ReposeTimeText()
     {
-        var timetextpos = Camera.main.WorldToScreenPoint(Player.Global.transform.position + Vector3.up);
+        var timetextpos = Camera.main.WorldToScreenPoint(Player.Global.transform.position + Vector3.up * 1.5f);
         FloatingTimeText.transform.position = timetextpos;
     }
 
