@@ -11,8 +11,14 @@ public class LoginManager : MonoBehaviour
     private void Awake() {
         Instance = this;
 
+        GameSparksManager.Instance.OnGameSparksInitializationCompleted.AddListener(TryAutoLogin);
     }
 
+    private void TryAutoLogin() {
+        if (PlayerPrefs.HasKey("login")) {
+            Auth(PlayerPrefs.GetString("login"));
+        }
+    }
     public static void Auth(string login = "", Action<string> registrationerror = null)
     {
         if (login == "")
