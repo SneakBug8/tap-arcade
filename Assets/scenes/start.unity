@@ -774,7 +774,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Log in to continue
+  m_Text: Choose username
 --- !u!222 &1589466738
 CanvasRenderer:
   m_ObjectHideFlags: 0
