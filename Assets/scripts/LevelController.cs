@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour
     public static LevelController Global;
     public float deltaY = 0;
     public float FloatingTime { get { return _floatingTime; } }
-    public float FloatingTimeInt { get { return Mathf.FloorToInt(_floatingTime); } }
+    public int FloatingTimeInt { get { return Mathf.FloorToInt(_floatingTime); } }
     float _floatingTime = 0;
     public Text FloatingTimeText;
     public Camera Camera;
@@ -69,7 +69,7 @@ public class LevelController : MonoBehaviour
 
     void ReposeTimeText()
     {
-        var timetextpos = Camera.main.WorldToScreenPoint(Player.Global.transform.position + Vector3.up);
+        var timetextpos = Camera.main.WorldToScreenPoint(Player.Global.transform.position + Vector3.up * 1.5f);
         FloatingTimeText.transform.position = timetextpos;
     }
 
