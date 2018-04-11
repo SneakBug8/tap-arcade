@@ -125,7 +125,7 @@ namespace Facebook.Unity.Example
 
         private void CallFBLogin()
         {
-            FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email", "user_friends" }, this.HandleResult);
+            FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email"}, this.HandleResult);
         }
 
         private void CallFBLoginForPublish()
