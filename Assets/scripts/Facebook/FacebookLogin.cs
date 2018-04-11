@@ -18,40 +18,9 @@ public class FacebookLogin : MonoBehaviour
         {
             LoginManager.Auth(OnLogin, PlayerPrefs.GetString("facebook_token"));
         }
-        else if (!FB.IsInitialized)
-        {
-            // Initialize the Facebook SDK
-            FB.Init(InitCallback, OnHideUnity);
-        }
         else
         {
-            FB.ActivateApp();
             ShowLoginUI();
-        }
-    }
-
-    private void InitCallback()
-    {
-        if (FB.IsInitialized)
-        {
-            FB.ActivateApp();
-            ShowLoginUI();
-        }
-        else
-        {
-            Debug.Log("Failed to Initialize the Facebook SDK");
-        }
-    }
-
-    private void OnHideUnity(bool isGameShown)
-    {
-        if (!isGameShown)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
         }
     }
 
