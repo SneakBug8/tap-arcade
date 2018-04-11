@@ -10,7 +10,9 @@ public class LoginManager : MonoBehaviour
     public static LoginManager Instance;
     private void Awake() {
         Instance = this;
+    }
 
+    private void Start() {
         GameSparksManager.Instance.OnGameSparksInitializationCompleted.AddListener(TryAutoLogin);
     }
 
