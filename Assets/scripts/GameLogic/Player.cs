@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 	public static Player Global;
 	Rigidbody2D Rigidbody2D;
-	SpriteRenderer Renderer;
 	public TrailObject[] TrailObjects;
 	private void Awake() {
 		Global = this;
@@ -13,7 +12,6 @@ public class Player : MonoBehaviour {
 
 	private void Start() {
 		Rigidbody2D = GetComponent<Rigidbody2D>();
-		Renderer = GetComponent<SpriteRenderer>();
 	}
 
 	public void Freeze() {

@@ -280,7 +280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &103642312
@@ -1067,7 +1067,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1075,7 +1075,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 22446630, guid: ac647dd41f87246cb84dc78f845cb5c1, type: 2}
       propertyPath: m_AnchorMin.x
@@ -1160,9 +1160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: 320
-  m_MinHeight: 80
+  m_MinHeight: 60
   m_PreferredWidth: 480
-  m_PreferredHeight: 100
+  m_PreferredHeight: 60
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
@@ -1346,8 +1346,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 645102317}
   m_HandleRect: {fileID: 645102316}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.24599999
+  m_Value: 0.9999998
+  m_Size: 0.32599998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
