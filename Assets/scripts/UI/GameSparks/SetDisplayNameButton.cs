@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Button, used to set Display Name of Player
+/// </summary>
 
-public class WithLoginButton : MonoBehaviour {
+public class SetDisplayNameButton : MonoBehaviour {
     public Button Button;
     public InputField Input;
     public Text PlaceHolder;
+    public GameObject WindowObject;
     private void Start() {
         Button.onClick.AddListener(() => {
             if (Input.text != "") {
-                LoginManager.Login(Input.text, RegistrationError);
+                LoginManager.SetDisplayName(Input.text, Success);
                 Input.text = "";
             }
             else {
@@ -19,8 +23,12 @@ public class WithLoginButton : MonoBehaviour {
         });
     }
  
-    void RegistrationError(string login) {
+    void RegistrationError() {
         PlaceHolder.text = "This login is already taken";
         Input.text = "";
+    }
+
+    void Success() {
+        WindowObject.SetActive(true);
     }
 }

@@ -5,6 +5,7 @@ using Facebook.Unity;
 using System.Collections.Generic;
 using System;
 
+/*
 [RequireComponent(typeof(Button))]
 public class FacebookLogin : MonoBehaviour
 {
@@ -54,3 +55,4 @@ public class FacebookLogin : MonoBehaviour
         SceneManager.LoadScene(SceneAfterLogin);
     }
 }
+*/

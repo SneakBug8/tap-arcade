@@ -7,6 +7,10 @@ public class ScoreManager : MonoBehaviour
 {
     public static void SendScore(int score)
     {
+        if (!GameSparksManager.Instance.UseGameSparks) {
+            return;
+        }
+        
         new LogEventRequest().SetEventKey("SendScore")
             .SetEventAttribute("TIME", (long)score)
             .Send((response) =>

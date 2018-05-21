@@ -9,6 +9,8 @@ public class RecordsDrawer : MonoBehaviour
 
     // Use this for initialization
     Text Text;
+    
+    public GameObject DisplayNameWindow;
     private void Awake()
     {
         Text = GetComponent<Text>();
@@ -24,11 +26,22 @@ public class RecordsDrawer : MonoBehaviour
             recordtext
             );
 
-        ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);        
+        
 
         if (newrecord)
         {
             PlayerPrefs.SetFloat("RecordFloatingTime", LevelController.Global.FloatingTime);
         }
+
+        if (!PlayerPrefs.HasKey("DisplayNameSet")) {
+            ShowDisplayNameWindow();
+        }
+        else {
+            ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
+        }
+    }
+
+    void ShowDisplayNameWindow() {
+        DisplayNameWindow.SetActive(true);
     }
 }

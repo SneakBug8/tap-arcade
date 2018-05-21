@@ -13,42 +13,43 @@ public class LoginManager : MonoBehaviour
     }
 
     private void Start() {
-        GameSparksManager.Instance.OnGameSparksInitializationCompleted.AddListener(TryAutoLogin);
+        GameSparksManager.Instance.OnGameSparksInitializationCompleted.AddListener(AutoAuth);
     }
 
-    private void TryAutoLogin() {
+/// <summary>
+/// Try to login and register automatically
+/// </summary>
+    private void AutoAuth() {
         if (PlayerPrefs.HasKey("login")) {
-            Debug.Log(PlayerPrefs.HasKey("login"));
-            Login(PlayerPrefs.GetString("login"));
+            Debug.Log(PlayerPrefs.GetString("login"));
+            Login(Instance.Success, BypassLogin);
+        }
+        else {
+            Register(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceUniqueIdentifier, Instance.Success, BypassLogin);
         }
     }
-    public static void Login(Action<string> registrationerror = null)
+    public static void Login(Action success, Action error = null)
     {
-        var login = new System.Guid().ToString();
-        Login(login, registrationerror);
+        var login = PlayerPrefs.GetString("login");
+        Login(login, success, error);
     }
 
-    public static void Login(string login, Action<string> registrationerror = null)
+    public static void Login(string login, Action success, Action error = null)
     {
-        Login(login, SystemInfo.deviceUniqueIdentifier, Instance.Success, 
-        (s1, s2) => Register(s1, s2, Instance.Success, registrationerror));
+        Login(login, SystemInfo.deviceUniqueIdentifier, success);
     }
 
     static void Login(string login, string password, Action success, Action<string, string> error = null)
     {
         new AuthenticationRequest()
             .SetUserName(login)
-            .SetPassword(SystemInfo.deviceUniqueIdentifier)
+            .SetPassword(password)
             .Send((response) =>
             {
                 if (response.HasErrors)
                 {
-                    if (error != null) {
-                        error(login, password);
-                    }
-                    else {
-                        Debug.LogError(response.Errors);
-                    }
+                    error(login, password);
+                    Debug.LogError(response.Errors);
                 }
                 else
                 {
@@ -59,36 +60,59 @@ public class LoginManager : MonoBehaviour
             });
     }
 
-    static void Register(string login, string password, Action success, Action<string> error = null) {
+/// <summary>
+/// Change player's displayname for leadrboard
+/// </summary>
+/// <param name="displayname">New display name</param>
+/// <param name="success">callback for success</param>
+/// <param name="error">callback for error</param>
+    public static void SetDisplayName(string displayname, Action success, Action error = null) {
+        new ChangeUserDetailsRequest()
+        .SetDisplayName(displayname)
+        .Send(response => {
+            if (!response.HasErrors) {
+                success();
+                PlayerPrefs.SetInt("DisplayNameSet", 1);
+            }
+            else {
+                Debug.LogError(response.Errors);
+                error();
+            }
+        });
+    }
+
+    static void Register(string login, string password, Action success, Action error = null) {
         new RegistrationRequest()
             .SetUserName(login)
-            .SetDisplayName(login)
             .SetPassword(SystemInfo.deviceUniqueIdentifier)
             .Send((response) =>
             {
                 if (response.HasErrors)
                 {
+                    Debug.LogError(response.Errors);
                     if (error != null) {
-                        error(login);
-                    }
-                    else {
-                        Debug.LogError(response.Errors);
+                        error();
                     }
                 }
                 else
                 {
                     Debug.Log("Successful registration");
+                    PlayerPrefs.SetString("login", SystemInfo.deviceUniqueIdentifier);
                     success();
                 }
             });
     }
 
+/// <summary>
+/// Bypass auth in case of errors
+/// </summary>
     public void BypassLogin() {
+        GameSparksManager.Instance.UseGameSparks = false;
         Success();
     }
 
-    void Success() {
-        Debug.Log("Success");
+    public void Success() {
+        Debug.Log("Successful login");
         SceneManager.LoadScene(SceneAfterLogin);
     }
 }
