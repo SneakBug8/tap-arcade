@@ -29,6 +29,8 @@ public class SetDisplayNameButton : MonoBehaviour {
     }
 
     void Success() {
-        WindowObject.SetActive(true);
+        ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
+        LostMenu.Global.gameObject.SetActive(true);
+        WindowObject.SetActive(false);
     }
 }

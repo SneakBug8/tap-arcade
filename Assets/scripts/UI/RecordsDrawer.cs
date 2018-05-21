@@ -9,7 +9,7 @@ public class RecordsDrawer : MonoBehaviour
 
     // Use this for initialization
     Text Text;
-    
+
     public GameObject DisplayNameWindow;
     private void Awake()
     {
@@ -26,22 +26,29 @@ public class RecordsDrawer : MonoBehaviour
             recordtext
             );
 
-        
+
 
         if (newrecord)
         {
             PlayerPrefs.SetFloat("RecordFloatingTime", LevelController.Global.FloatingTime);
         }
 
-        if (!PlayerPrefs.HasKey("DisplayNameSet")) {
-            ShowDisplayNameWindow();
-        }
-        else {
-            ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
+        if (GameSparksManager.Instance.UseGameSparks)
+        {
+            if (!PlayerPrefs.HasKey("DisplayNameSet"))
+            {
+                ShowDisplayNameWindow();
+                LostMenu.Global.gameObject.SetActive(false);
+            }
+            else
+            {
+                ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
+            }
         }
     }
 
-    void ShowDisplayNameWindow() {
+    void ShowDisplayNameWindow()
+    {
         DisplayNameWindow.SetActive(true);
     }
 }

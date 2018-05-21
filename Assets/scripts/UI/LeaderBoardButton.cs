@@ -6,7 +6,7 @@ public class LeaderBoardButton : MonoBehaviour {
     public string Scene;
     private void Start() {
         if (GameSparksManager.Instance.UseGameSparks) {
-        GetComponent<Button>().onClick.AddListener(ChangeScene);
+            GetComponent<Button>().onClick.AddListener(ChangeScene);
         }
         else {
             GetComponent<Button>().interactable = false;

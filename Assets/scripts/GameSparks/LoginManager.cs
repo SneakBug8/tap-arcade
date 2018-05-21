@@ -8,23 +8,28 @@ public class LoginManager : MonoBehaviour
 {
     public string SceneAfterLogin;
     public static LoginManager Instance;
-    private void Awake() {
+    private void Awake()
+    {
         Instance = this;
     }
 
-    private void Start() {
+    private void Start()
+    {
         GameSparksManager.Instance.OnGameSparksInitializationCompleted.AddListener(AutoAuth);
     }
 
-/// <summary>
-/// Try to login and register automatically
-/// </summary>
-    private void AutoAuth() {
-        if (PlayerPrefs.HasKey("login")) {
+    /// <summary>
+    /// Try to login and register automatically
+    /// </summary>
+    private void AutoAuth()
+    {
+        if (PlayerPrefs.HasKey("login"))
+        {
             Debug.Log(PlayerPrefs.GetString("login"));
             Login(Instance.Success, BypassLogin);
         }
-        else {
+        else
+        {
             Register(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceUniqueIdentifier, Instance.Success, BypassLogin);
         }
     }
@@ -49,7 +54,7 @@ public class LoginManager : MonoBehaviour
                 if (response.HasErrors)
                 {
                     error(login, password);
-                    Debug.LogError(response.Errors);
+                    Debug.LogError(response.Errors.JSON);
                 }
                 else
                 {
@@ -60,37 +65,46 @@ public class LoginManager : MonoBehaviour
             });
     }
 
-/// <summary>
-/// Change player's displayname for leadrboard
-/// </summary>
-/// <param name="displayname">New display name</param>
-/// <param name="success">callback for success</param>
-/// <param name="error">callback for error</param>
-    public static void SetDisplayName(string displayname, Action success, Action error = null) {
+    /// <summary>
+    /// Change player's displayname for leadrboard
+    /// </summary>
+    /// <param name="displayname">New display name</param>
+    /// <param name="success">callback for success</param>
+    /// <param name="error">callback for error</param>
+    public static void SetDisplayName(string displayname, Action success, Action error = null)
+    {
         new ChangeUserDetailsRequest()
         .SetDisplayName(displayname)
-        .Send(response => {
-            if (!response.HasErrors) {
+        .Send(response =>
+        {
+            if (!response.HasErrors)
+            {
                 success();
                 PlayerPrefs.SetInt("DisplayNameSet", 1);
             }
-            else {
-                Debug.LogError(response.Errors);
-                error();
+            else
+            {
+                Debug.LogError(response.Errors.JSON);
+                if (error != null) {
+                    error();
+                }
             }
         });
     }
 
-    static void Register(string login, string password, Action success, Action error = null) {
+    static void Register(string login, string password, Action success, Action error = null)
+    {
         new RegistrationRequest()
             .SetUserName(login)
+            .SetDisplayName(login)
             .SetPassword(SystemInfo.deviceUniqueIdentifier)
             .Send((response) =>
             {
                 if (response.HasErrors)
                 {
-                    Debug.LogError(response.Errors);
-                    if (error != null) {
+                    Debug.LogError(response.Errors.JSON);
+                    if (error != null)
+                    {
                         error();
                     }
                 }
@@ -103,16 +117,25 @@ public class LoginManager : MonoBehaviour
             });
     }
 
-/// <summary>
-/// Bypass auth in case of errors
-/// </summary>
-    public void BypassLogin() {
+    /// <summary>
+    /// Bypass auth in case of errors
+    /// </summary>
+    public void BypassLogin()
+    {
         GameSparksManager.Instance.UseGameSparks = false;
-        Success();
+        Success(true);
     }
 
     public void Success() {
-        Debug.Log("Successful login");
+        Success(false);
+    }
+
+    public void Success(bool silence)
+    {
+        if (!silence)
+        {
+            Debug.Log("Successful auth");
+        }
         SceneManager.LoadScene(SceneAfterLogin);
     }
 }
