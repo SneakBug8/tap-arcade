@@ -26,11 +26,18 @@ public class LoginManager : MonoBehaviour
         if (PlayerPrefs.HasKey("login"))
         {
             Debug.Log(PlayerPrefs.GetString("login"));
-            Login(Instance.Success, BypassLogin);
+            Login(Instance.Success,
+            () => Register(SystemInfo.deviceUniqueIdentifier,
+                SystemInfo.deviceUniqueIdentifier,
+                Success,
+                BypassLogin));
         }
         else
         {
-            Register(SystemInfo.deviceUniqueIdentifier, SystemInfo.deviceUniqueIdentifier, Instance.Success, BypassLogin);
+            Register(SystemInfo.deviceUniqueIdentifier,
+            SystemInfo.deviceUniqueIdentifier,
+            Instance.Success,
+            () => Login(SystemInfo.deviceUniqueIdentifier, Success, BypassLogin));
         }
     }
     public static void Login(Action success, Action error = null)
@@ -41,7 +48,7 @@ public class LoginManager : MonoBehaviour
 
     public static void Login(string login, Action success, Action error = null)
     {
-        Login(login, SystemInfo.deviceUniqueIdentifier, success);
+        Login(login, SystemInfo.deviceUniqueIdentifier, success, (l, p) => error());
     }
 
     static void Login(string login, string password, Action success, Action<string, string> error = null)
@@ -53,7 +60,9 @@ public class LoginManager : MonoBehaviour
             {
                 if (response.HasErrors)
                 {
-                    error(login, password);
+                    if (error != null) {
+                        error(login, password);
+                    }
                     Debug.LogError(response.Errors.JSON);
                 }
                 else
@@ -85,7 +94,8 @@ public class LoginManager : MonoBehaviour
             else
             {
                 Debug.LogError(response.Errors.JSON);
-                if (error != null) {
+                if (error != null)
+                {
                     error();
                 }
             }
@@ -126,7 +136,8 @@ public class LoginManager : MonoBehaviour
         Success(true);
     }
 
-    public void Success() {
+    public void Success()
+    {
         Success(false);
     }
 
