@@ -41,7 +41,7 @@ public class FacebookLogin : MonoBehaviour
 
             PlayerPrefs.SetString("facebook_token", aToken.UserId);
 
-            LoginManager.Auth(aToken.UserId);
+            LoginManager.Login(aToken.UserId);
         }
         else
         {

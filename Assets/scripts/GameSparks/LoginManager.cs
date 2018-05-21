@@ -18,16 +18,18 @@ public class LoginManager : MonoBehaviour
 
     private void TryAutoLogin() {
         if (PlayerPrefs.HasKey("login")) {
-            Auth(PlayerPrefs.GetString("login"));
+            Debug.Log(PlayerPrefs.HasKey("login"));
+            Login(PlayerPrefs.GetString("login"));
         }
     }
-    public static void Auth(string login = "", Action<string> registrationerror = null)
+    public static void Login(Action<string> registrationerror = null)
     {
-        if (login == "")
-        {
-            login = SystemInfo.deviceUniqueIdentifier;
-        }
+        var login = new System.Guid().ToString();
+        Login(login, registrationerror);
+    }
 
+    public static void Login(string login, Action<string> registrationerror = null)
+    {
         Login(login, SystemInfo.deviceUniqueIdentifier, Instance.Success, 
         (s1, s2) => Register(s1, s2, Instance.Success, registrationerror));
     }
@@ -43,6 +45,9 @@ public class LoginManager : MonoBehaviour
                 {
                     if (error != null) {
                         error(login, password);
+                    }
+                    else {
+                        Debug.LogError(response.Errors);
                     }
                 }
                 else
@@ -66,6 +71,9 @@ public class LoginManager : MonoBehaviour
                     if (error != null) {
                         error(login);
                     }
+                    else {
+                        Debug.LogError(response.Errors);
+                    }
                 }
                 else
                 {
@@ -75,7 +83,12 @@ public class LoginManager : MonoBehaviour
             });
     }
 
+    public void BypassLogin() {
+        Success();
+    }
+
     void Success() {
+        Debug.Log("Success");
         SceneManager.LoadScene(SceneAfterLogin);
     }
 }

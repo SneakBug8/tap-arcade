@@ -9,7 +9,7 @@ public class WithLoginButton : MonoBehaviour {
     private void Start() {
         Button.onClick.AddListener(() => {
             if (Input.text != "") {
-                LoginManager.Auth(Input.text, RegistrationError);
+                LoginManager.Login(Input.text, RegistrationError);
                 Input.text = "";
             }
             else {

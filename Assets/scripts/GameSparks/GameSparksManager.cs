@@ -6,6 +6,7 @@ public class GameSparksManager : MonoBehaviour {
     public static GameSparksManager Instance;
     public GameObject GameSparks;
     public UnityEvent OnGameSparksInitializationCompleted = new UnityEvent();
+    public bool UseGameSparks = true;
 
     PlatformBase Platform;
     private void Awake() {
@@ -26,6 +27,7 @@ public class GameSparksManager : MonoBehaviour {
         Platform = GameSparks.GetComponent<PlatformBase>();
 
         if (Platform != null) {
+            Debug.Log("Initialization completed");
             OnGameSparksInitializationCompleted.Invoke();
         }
     }
