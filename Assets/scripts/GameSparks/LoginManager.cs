@@ -133,20 +133,11 @@ public class LoginManager : MonoBehaviour
     public void BypassLogin()
     {
         GameSparksManager.Instance.UseGameSparks = false;
-        Success(true);
+        Success();
     }
 
     public void Success()
     {
-        Success(false);
-    }
-
-    public void Success(bool silence)
-    {
-        if (!silence)
-        {
-            Debug.Log("Successful auth");
-        }
         SceneManager.LoadScene(SceneAfterLogin);
     }
 }
