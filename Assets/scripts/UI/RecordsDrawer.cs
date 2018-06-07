@@ -32,23 +32,5 @@ public class RecordsDrawer : MonoBehaviour
         {
             PlayerPrefs.SetFloat("RecordFloatingTime", LevelController.Global.FloatingTime);
         }
-
-        if (GameSparksManager.Instance.UseGameSparks)
-        {
-            if (!PlayerPrefs.HasKey("DisplayNameSet"))
-            {
-                ShowDisplayNameWindow();
-                LostMenu.Global.gameObject.SetActive(false);
-            }
-            else
-            {
-                ScoreManager.SendScore(LevelController.Global.FloatingTimeInt);
-            }
-        }
-    }
-
-    void ShowDisplayNameWindow()
-    {
-        DisplayNameWindow.SetActive(true);
     }
 }
