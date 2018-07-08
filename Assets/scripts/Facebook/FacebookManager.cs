@@ -1,6 +1,7 @@
-using Facebook.Unity;
+// using Facebook.Unity;
 using UnityEngine;
 
+/*
 public class FacebookManager : MonoBehaviour
 {
     public static FacebookManager Instance;
@@ -53,3 +54,4 @@ public class FacebookManager : MonoBehaviour
         }
     }
 }
+*/

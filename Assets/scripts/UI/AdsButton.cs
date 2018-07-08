@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Facebook.Unity;
+// using Facebook.Unity;
+using TwitterKit.Unity;
 #if UNITY_ADS
 using UnityEngine.Advertisements;
 #endif
@@ -74,24 +75,43 @@ public class AdsButton : MonoBehaviour
     {
         if (result == ShowResult.Finished)
         {
-            GivePlayerNewChange();
+            GivePlayerNewChance();
             usedTimes++;
         }
     }
 
-    void ChangeTextToShare() {
+    void ChangeTextToShare()
+    {
         ButtonText.text = "Share to continue";
     }
 
     void ShareDialog()
     {
+        Twitter.Compose(Twitter.Session, "", "Best game ever! Check it out: https://sneakbug8.com/tap-arcade", new string[] { "#TapArcade" },
+              (string tweetId) =>
+              {
+                  UnityEngine.Debug.Log("Tweet Success, tweetId = " + tweetId);
+                  GivePlayerNewChance();
+                  usedTimes++;
+              },
+              (ApiError error) =>
+              {
+                  UnityEngine.Debug.Log("Tweet Failed " + error.message);
+              },
+              () =>
+              {
+                  Debug.Log("Compose cancelled");
+              }
+      );
+        /*
         FB.FeedShare(
             link: new System.Uri("https://sneakbug8.com"),
             linkName: "Checkout this awesome game",
             callback: ShareCallback
         );
+        */
     }
-
+    /*
     void ShareCallback(IShareResult result)
     {
         if (!result.Cancelled && result.Error == null)
@@ -100,8 +120,9 @@ public class AdsButton : MonoBehaviour
             usedTimes++;
         }
     }
+    */
 
-    void GivePlayerNewChange()
+    void GivePlayerNewChance()
     {
         LostMenu.Global.gameObject.SetActive(false);
         LevelController.Global.Resume();

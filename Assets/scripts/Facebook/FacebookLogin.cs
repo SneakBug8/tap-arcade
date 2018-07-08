@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Facebook.Unity;
+// using Facebook.Unity;
 using System.Collections.Generic;
 using System;
 
