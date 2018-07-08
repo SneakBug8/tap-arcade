@@ -1,10 +1,9 @@
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 // using Facebook.Unity;
-using TwitterKit.Unity;
 #if UNITY_ADS
 using UnityEngine.Advertisements;
-#endif
 
 public class AdsButton : MonoBehaviour
 {
@@ -37,9 +36,6 @@ public class AdsButton : MonoBehaviour
                     button.interactable = false;
                 }
                 break;
-            case 1:
-                button.interactable = true;
-                break;
             default:
                 button.interactable = false;
                 break;
@@ -52,10 +48,6 @@ public class AdsButton : MonoBehaviour
         if (usedTimes == 0)
         {
             ShowAd();
-        }
-        else if (usedTimes == 1)
-        {
-            ShareDialog();
         }
     }
 
@@ -85,50 +77,10 @@ public class AdsButton : MonoBehaviour
         ButtonText.text = "Share to continue";
     }
 
-    void ShareDialog()
-    {
-        var twlogin = gameObject.AddComponent<TwitterLogin>();
-        twlogin.StartLogin((session) =>
-        {
-            Twitter.Compose(session, "", "Best game ever! Check it out: https://sneakbug8.com/tap-arcade", new string[] { "#TapArcade" },
-                  (string tweetId) =>
-                  {
-                      UnityEngine.Debug.Log("Tweet Success, tweetId = " + tweetId);
-                      GivePlayerNewChance();
-                      usedTimes++;
-                  },
-                  (ApiError error) =>
-                  {
-                      UnityEngine.Debug.Log("Tweet Failed " + error.message);
-                  },
-                  () =>
-                  {
-                      Debug.Log("Compose cancelled");
-                  }
-          );
-        });
-        /*
-        FB.FeedShare(
-            link: new System.Uri("https://sneakbug8.com"),
-            linkName: "Checkout this awesome game",
-            callback: ShareCallback
-        );
-        */
-    }
-    /*
-    void ShareCallback(IShareResult result)
-    {
-        if (!result.Cancelled && result.Error == null)
-        {
-            GivePlayerNewChange();
-            usedTimes++;
-        }
-    }
-    */
-
     void GivePlayerNewChance()
     {
         LostMenu.Global.gameObject.SetActive(false);
         LevelController.Global.Resume();
     }
 }
+#endif
