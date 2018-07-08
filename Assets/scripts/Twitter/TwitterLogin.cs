@@ -1,20 +1,18 @@
-﻿using TwitterKit.Unity;
+﻿using System;
+using TwitterKit.Unity;
 
 using UnityEngine;
 
 public class TwitterLogin : MonoBehaviour
 {
-    private void Start()
+    public void StartLogin(Action<TwitterSession> successcallback)
     {
         Twitter.Init();
-    }
 
-    public void StartLogin()
-    {
         TwitterSession session = Twitter.Session;
         if (session == null)
         {
-            Twitter.LogIn(LoginComplete, LoginFailure);
+            Twitter.LogIn(successcallback, LoginFailure);
         }
         else
         {

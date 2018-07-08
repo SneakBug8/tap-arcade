@@ -23,7 +23,7 @@ public class AdsButton : MonoBehaviour
         button.onClick.AddListener(OnClick);
     }
 
-    private void Update()
+    private void OnEnable()
     {
         switch (usedTimes)
         {
@@ -87,22 +87,26 @@ public class AdsButton : MonoBehaviour
 
     void ShareDialog()
     {
-        Twitter.Compose(Twitter.Session, "", "Best game ever! Check it out: https://sneakbug8.com/tap-arcade", new string[] { "#TapArcade" },
-              (string tweetId) =>
-              {
-                  UnityEngine.Debug.Log("Tweet Success, tweetId = " + tweetId);
-                  GivePlayerNewChance();
-                  usedTimes++;
-              },
-              (ApiError error) =>
-              {
-                  UnityEngine.Debug.Log("Tweet Failed " + error.message);
-              },
-              () =>
-              {
-                  Debug.Log("Compose cancelled");
-              }
-      );
+        var twlogin = gameObject.AddComponent<TwitterLogin>();
+        twlogin.StartLogin((session) =>
+        {
+            Twitter.Compose(session, "", "Best game ever! Check it out: https://sneakbug8.com/tap-arcade", new string[] { "#TapArcade" },
+                  (string tweetId) =>
+                  {
+                      UnityEngine.Debug.Log("Tweet Success, tweetId = " + tweetId);
+                      GivePlayerNewChance();
+                      usedTimes++;
+                  },
+                  (ApiError error) =>
+                  {
+                      UnityEngine.Debug.Log("Tweet Failed " + error.message);
+                  },
+                  () =>
+                  {
+                      Debug.Log("Compose cancelled");
+                  }
+          );
+        });
         /*
         FB.FeedShare(
             link: new System.Uri("https://sneakbug8.com"),
